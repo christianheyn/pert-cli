@@ -1,18 +1,21 @@
 isSubstringOf :: [Char] -> [Char] -> Bool
-isSubstringOf [][] = False
-isSubstringOf _[] = False
-isSubstringOf []_ = False
-isSubstringOf (stack:stackS)(needle:needleS)
+isSubstringOf _ [] = False
+isSubstringOf [] _ = False
+isSubstringOf (stack:stackRest)(needle:needleRest)
     | stack == needle = True
-    | otherwise = (stack:stackS) `isSubstringOf` needleS
+    | otherwise = (stack:stackRest) `isSubstringOf` needleRest
 
--- check units
+containsString :: [Char] -> [Char] -> Bool
+containsString value str = str == [c | c <- str, c `elem` value]
+
+-- Check units
 tellUnit value 
-    | "m" `isSubstringOf` value = "Minutes"
-    | "h" `isSubstringOf` value = "Hours"
-    | "d" `isSubstringOf` value = "Days"
+    | value `containsString` "min" = "Minutes"
+    | value `containsString` "hour" = "Hours"
+    | value `containsString` "day" = "Days"
     | otherwise = "default Hours"
 
+-- Main
 main = do  
     putStrLn "Likely case?"
     likely <- getLine
