@@ -1,5 +1,7 @@
 # pert-cli
 
+*in progress*
+
 Tiny experimental cli to calculate estimates via [PERT](https://de.wikipedia.org/wiki/Program_evaluation_and_review_technique)
 
 #### Required
