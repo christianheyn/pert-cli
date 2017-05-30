@@ -1,0 +1,25 @@
+{
+  "name": "learn-haskell",
+  "version": "1.0.0",
+  "description": "``` $ ghc -o ./dist/index index.hs ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+  	"compile": "ghc -o ./dist/index ./src/index.hs",
+  	"exc": "./dist/index",
+  	"watch": "watch-run -p ./src/**/*.hs 'runhaskell ./src/index.hs'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christianheyn/learn-haskell.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christianheyn/learn-haskell/issues"
+  },
+  "homepage": "https://github.com/christianheyn/learn-haskell#readme",
+  "devDependencies": {
+    "watch-run": "^1.2.5"
+  }
+}
