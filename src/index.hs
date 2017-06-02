@@ -7,8 +7,8 @@ minutesToHour m = m / (60 / 100)
 daysToHours ::  Float -> Float
 daysToHours d = d * 8
 
-filterToFloatlike :: [Char] -> [Char]
-filterToFloatlike s =
+toFloatlikeString :: String -> String
+toFloatlikeString s =
     let allowedString = ['0'..'9'] ++ ['.', ',']
         toPoint n
             | n == ',' = '.'
@@ -41,4 +41,4 @@ main = do
     putStrLn ("Likely case: " ++ l)
     putStrLn ("Worst case: " ++ w)
     putStrLn ("Best case: " ++ b)
-    putStrLn (filterToFloatlike "34,7min%&&")
+    putStrLn (toFloatlikeString "34,7min%&&")
