@@ -18,7 +18,7 @@ toFloatlikeString s =
         d = map toPoint f
     in d
 
--- Check units
+tellUnit :: String -> String
 tellUnit value 
     | value `containsChars` "m" = "Minutes"
     | value `containsChars` "h" = "Hours"
