@@ -7,8 +7,8 @@ minutesToHour m = m / (60 / 100)
 daysToHours ::  Float -> Float
 daysToHours d = d * 8
 
-toFloatlikeString :: String -> String
-toFloatlikeString s =
+filterNumberFromString :: String -> String
+filterNumberFromString s =
     let allowedString = ['0'..'9'] ++ ['.', ',']
         toPoint n
             | n == ',' = '.'
@@ -17,6 +17,13 @@ toFloatlikeString s =
         f = filter (`elem` allowedString) s
         d = map toPoint f
     in d
+
+
+convertStringToFloat :: String -> Float
+convertStringToFloat s =
+    let betterString = filterNumberFromString s
+        asFloat = read betterString :: Float
+    in asFloat
 
 tellUnit :: String -> String
 tellUnit value 
@@ -38,7 +45,8 @@ main = do
         w = tellUnit worst
         b = tellUnit best
 
+
     putStrLn ("Likely case: " ++ l)
     putStrLn ("Worst case: " ++ w)
     putStrLn ("Best case: " ++ b)
-    putStrLn (toFloatlikeString "34,7min%&&")
+    print (convertStringToFloat "15,00")
