@@ -7,14 +7,14 @@ Tiny experimental cli to calculate estimates via [PERT](https://de.wikipedia.org
 #### Required
 * [ghci](https://www.haskell.org/platform/)
 
-Run via **runhaskell**
+Run after compilation
 ```
-$ runhaskell ./src/index.hs
+$ ghc -o ./dist/index ./src/index.hs -isrc && ./dist/index
 ```
 
 Compile
 ```
-$ ghc -o ./dist/index ./src/index.hs
+$ ghc -o ./dist/index ./src/index.hs -isrc
 ```
 
 Run compiled file

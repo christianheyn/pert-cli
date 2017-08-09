@@ -1,29 +1,7 @@
+import Modules.Converter -- > convertStringToFloat
+
 containsChars :: [Char] -> [Char] -> Bool
 containsChars value str = str == [c | c <- str, c `elem` value]
-
-minutesToHour :: Float -> Float
-minutesToHour m = m / (60 / 100)
-
-daysToHours ::  Float -> Float
-daysToHours d = d * 8
-
-filterNumberFromString :: String -> String
-filterNumberFromString s =
-    let allowedString = ['0'..'9'] ++ ['.', ',']
-        toPoint n
-            | n == ',' = '.'
-            | otherwise = n
-
-        f = filter (`elem` allowedString) s
-        d = map toPoint f
-    in d
-
-
-convertStringToFloat :: String -> Float
-convertStringToFloat s =
-    let betterString = filterNumberFromString s
-        asFloat = read betterString :: Float
-    in asFloat
 
 getUnit :: String -> String
 getUnit value 
@@ -39,7 +17,7 @@ getMinutesFrom t unit
     | otherwise = t
 
 -- Main
-main = do  
+main = do
     print "Likely case?"
     likelyInput <- getLine
     print "Worst case?"
@@ -54,5 +32,11 @@ main = do
         worstFloat = convertStringToFloat worstInput
         bestFloat = convertStringToFloat bestInput
 
-    putStrLn ("Likely case: " ++ likelyUnit)
-    print (getMinutesFrom 2 "Days")
+        likelyMinutes = getMinutesFrom likelyFloat likelyUnit
+        worstMinutes = getMinutesFrom worstFloat worstUnit
+        bestMinutes = getMinutesFrom bestFloat bestUnit
+
+        sumMinutes = (bestMinutes + (likelyMinutes * 4) + worstMinutes)
+
+    putStrLn ("U probaly need:")
+    print (sumMinutes / 6 / 60 )

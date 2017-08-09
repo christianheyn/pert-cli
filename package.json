@@ -1,0 +1,21 @@
+{
+  "name": "pert-cli",
+  "version": "0.0.1",
+  "description": "Tiny experimental cli to calculate estimates via PERT",
+  "main": "index.js",
+  "repository": "https://github.com/christianheyn/pert-cli.git",
+  "author": "Christian Heyn <chris.heyn.dd@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "watch-run": "^1.2.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"compile": "ghc -o ./dist/index ./src/index.hs -isrc",
+  "compile:test": "ghc -o ./dist/test ./test.hs -isrc",
+  "exc": "./dist/index",
+	"exc:test": "./dist/test",
+  "watch": "watch-run -p './src/**/*.hs' 'npm run compile'",
+	"watch:test": "watch-run -p './**/*.hs' 'npm run compile:test && npm run exc:test'"
+  }
+}

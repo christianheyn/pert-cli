@@ -1,3 +1,0 @@
-[submodule "vendor/hspec"]
-	path = vendor/hspec
-	url = https://github.com/hspec/hspec.git
