@@ -1,35 +1,56 @@
--- file Spec.hs
 import Test.Hspec
 import Test.QuickCheck
 import Control.Exception (evaluate)
-import Src.Pert -- estimate
-import Src.Modules.Converter
-    -- convertStringToFloat
-    -- filterNumberFromString
-    -- rmDuplicatePoints
+import Src.Pert (estimate)
+import Src.Modules.StringConverter (
+        convertStringToFloat,
+        filterNumberAndPointsFromString,
+        rmDuplicateChar
+    )
+import Src.Modules.UnitHelper (
+        containsString,
+        getUnit,
+        getMinutesFrom
+    )
 
 main :: IO ()
 main = hspec $ do
-    describe "Converter" $ do
+    describe "* Src.Modules.StringConverter" $ do
+        -- convertStringToFloat
         describe "convertStringToFloat" $ do
             it "convert a string to float" $ do
-                convertStringToFloat "4e" `shouldBe` 4.0
+                convertStringToFloat "4" `shouldBe` 4.0
+                convertStringToFloat "ww4eddd" `shouldBe` 4.0
+            it "interpretes a ',' as '.'" $ do
+                convertStringToFloat "004,9h" `shouldBe` 4.9
+            it "interpretes only first '.' or ','" $ do
+                convertStringToFloat "004,9h" `shouldBe` 4.9
+            it "interpretes shorthand case like '.5' to 0.5" $ do
+                convertStringToFloat ".5 Days" `shouldBe` 0.5
+                convertStringToFloat ".5.5 Days" `shouldBe` 0.55
+                convertStringToFloat "5.5 Days" `shouldBe` 5.5
 
-
-        describe "filterNumberFromString" $ do
-
+        -- filterNumberAndPointsFromString
+        describe "filterNumberAndPointsFromString" $ do
             it "removes all non-numeric charakters" $ do
-                filterNumberFromString "4ee" `shouldBe` "4"
-                filterNumberFromString "a1b2" `shouldBe` "12"
-
+                filterNumberAndPointsFromString "4ee" `shouldBe` "4"
+                filterNumberAndPointsFromString "a1b2" `shouldBe` "12"
             it "convert ',' to ." $ do
-                filterNumberFromString "4,3" `shouldBe` "4.3"
+                filterNumberAndPointsFromString "4,3" `shouldBe` "4.3"
+            it "removes duplicated '.' - keeps the first '.'" $ do
+                filterNumberAndPointsFromString "4,3.9" `shouldBe` "4.39"
 
-            -- it "removes duplicated '.' - keeps the first '.'" $ do
-            --     filterNumberFromString "4,3.9" `shouldBe` "4.39"
-
-        describe "rmDuplicatePoints" $ do
-
+        -- rmDuplicateChar
+        describe "rmDuplicateChar" $ do
             it "removes all duplicated '.'" $ do
-                rmDuplicatePoints "lala.lala" `shouldBe` "lala.lala"
-                rmDuplicatePoints "lala.la.la" `shouldBe` "lala.lala"
+                rmDuplicateChar "lala.lala" '.' `shouldBe` "lala.lala"
+                rmDuplicateChar "lala.la.la" '.' `shouldBe` "lala.lala"
+                rmDuplicateChar "..lala.la...la" '.' `shouldBe` ".lalalala"
+                rmDuplicateChar "lll" 'l' `shouldBe` "l"
+                rmDuplicateChar "l" 'l' `shouldBe` "l"
+
+    describe "* Src.Modules.UnitHelper" $ do
+        -- convertStringToFloat
+        describe "containsString value str" $ do
+            it "returns True when value is found in str" $ do
+                containsString "45h" "h" `shouldBe` True

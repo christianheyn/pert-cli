@@ -1,20 +1,6 @@
-import Modules.Converter -- > convertStringToFloat
+import Src.Modules.Converter -- > convertStringToFloat
+import Src.Modules.UnitHelper -- > convertStringToFloat
 
-containsChars :: [Char] -> [Char] -> Bool
-containsChars value str = str == [c | c <- str, c `elem` value]
-
-getUnit :: String -> String
-getUnit value 
-    | value `containsChars` "m" = "Minutes"
-    | value `containsChars` "h" = "Hours"
-    | value `containsChars` "d" = "Days"
-    | otherwise = "Hours"
-
-getMinutesFrom :: Float -> String -> Float
-getMinutesFrom t unit
-    | unit == "Hours" = t * 60
-    | unit == "Days" = t * 8 * 60
-    | otherwise = t
 
 -- Main
 main = do
