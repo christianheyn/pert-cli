@@ -54,3 +54,14 @@ main = hspec $ do
         describe "containsString value str" $ do
             it "returns True when value is found in str" $ do
                 containsString "45h" "h" `shouldBe` True
+                containsString "45h" "4" `shouldBe` True
+
+        -- getUnit
+        describe "getUnit value" $ do
+            it "returns 'Minutes', 'Hours' or 'Days' when value contains 'm','h' or 'd'" $ do
+                getUnit "45h" `shouldBe` "Hours"
+                getUnit "h45" `shouldBe` "Hours"
+                getUnit "4m" `shouldBe` "Minutes"
+                getUnit "m45" `shouldBe` "Minutes"
+                getUnit "1d" `shouldBe` "Days"
+                getUnit "d.9" `shouldBe` ['D', 'a', 'y', 's']
