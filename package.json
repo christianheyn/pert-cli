@@ -6,16 +6,21 @@
   "repository": "https://github.com/christianheyn/pert-cli.git",
   "author": "Christian Heyn <chris.heyn.dd@gmail.com>",
   "license": "MIT",
+  "bin": {
+    "pert": "./dist/cli",
+    "pert-cli": "./dist/cli"
+  },
   "devDependencies": {
     "watch-run": "^1.2.5"
   },
   "scripts": {
     "test": "npm run compile:test && npm run exc:test",
-  	"compile": "ghc -o ./dist/index ./src/index.hs -isrc",
+    "compile": "ghc -o ./dist/index ./src/index.hs -isrc",
+    "compile:cli": "ghc -o ./dist/cli ./src/cli.hs -isrc",
     "compile:test": "ghc -o ./dist/test ./test.hs -isrc",
     "exc": "./dist/index",
-  	"exc:test": "./dist/test",
+    "exc:test": "./dist/test",
     "watch": "watch-run -p './src/**/*.hs' 'npm run compile'",
-  	"watch:test": "watch-run -p './**/*.hs' 'npm run compile:test && npm run exc:test'"
+    "watch:test": "watch-run -p './**/*.hs' 'npm run compile:test && npm run exc:test'"
   }
 }

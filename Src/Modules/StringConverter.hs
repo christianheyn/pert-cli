@@ -5,14 +5,14 @@ module Src.Modules.StringConverter (
 ) where
 
 recursiveKeepOnce :: [Char] -> Char -> Bool -> [Char]
-recursiveKeepOnce (s:sx) once check =
+recursiveKeepOnce (s:sRest) once check =
     let newCheck = if s == once then False else True
-        filterRest = [s] ++ filter (\y -> y /= once) sx
+        filterRest = [s] ++ filter (\y -> y /= once) sRest
 
     in if check && s /= once
         then
-            if length sx > 0
-                then [s] ++ recursiveKeepOnce sx once newCheck
+            if length sRest > 0
+                then [s] ++ recursiveKeepOnce sRest once newCheck
                 else filterRest
         else filterRest
 -- End recursiveKeepOnce

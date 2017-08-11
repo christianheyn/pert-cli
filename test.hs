@@ -12,6 +12,10 @@ import Src.Modules.UnitHelper (
         getUnit,
         getMinutesFrom
     )
+import Src.Modules.Calculater (
+        onlyTwoDecimalDigits,
+        estimatePert
+    )
 
 main :: IO ()
 main = hspec $ do
@@ -65,3 +69,18 @@ main = hspec $ do
                 getUnit "m45" `shouldBe` "Minutes"
                 getUnit "1d" `shouldBe` "Days"
                 getUnit "d.9" `shouldBe` ['D', 'a', 'y', 's']
+
+    describe "* Src.Modules.Calculater" $ do
+        -- onlyTwoDecimalDigits
+        describe "onlyTwoDecimalDigits n" $ do
+            it "returns Float" $ do
+                onlyTwoDecimalDigits 2 `shouldBe` 2
+            it "calculates Pert and shows only 2 digits" $ do
+                onlyTwoDecimalDigits 2.88888 `shouldBe` 2.89
+
+        -- estimatePert
+        describe "estimatePert likely worst best" $ do
+            it "returns Float" $ do
+                estimatePert 2 2 2 `shouldBe` 2
+            it "calculates Pert and shows only 2 digits" $ do
+                estimatePert 4 8 2 `shouldBe` 4.33
